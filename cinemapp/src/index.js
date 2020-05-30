@@ -1,6 +1,6 @@
 import React from 'react';
 import 'react-native-gesture-handler';
-import {StatusBar} from 'react-native';
+import {StatusBar, SafeAreaView} from 'react-native';
 
 import {ThemeProvider} from 'styled-components';
 import Routes from './routes/routes';
@@ -12,6 +12,7 @@ const App = () => (
   <>
     <ThemeProvider theme={theme}>
       <StatusBar barStyle="light-content" backgroundColor="#000" />
+      <SafeAreaView style={{backgroundColor: theme.primaryBlue}} />
       <Routes />
     </ThemeProvider>
   </>
