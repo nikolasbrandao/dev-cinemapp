@@ -43,3 +43,36 @@ export const TextButton = styled.Text`
   font-size: 16;
   color: ${({theme}) => theme.primaryLight};
 `;
+
+export const CardMovie = styled.View`
+  flex-direction: row;
+  padding: 10px;
+  height: 100px;
+  background-color: ${({theme}) => theme.primaryDark};
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+`;
+
+export const CardImage = styled.Image`
+  height: 80px;
+  width: 55px;
+`;
+
+export const CardInfosWrapper = styled.View`
+  flex: 1;
+  height: 100%;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  margin: 8px 10px;
+`;
+
+export const CardTitle = styled.Text`
+  color: ${({theme}) => theme.secondaryLight};
+  font-size: 16;
+`;
+
+export const CardSubtitle = styled.Text`
+  color: ${({theme}) => theme.secondaryLight};
+  font-size: 14;
+`;
