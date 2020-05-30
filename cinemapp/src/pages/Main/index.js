@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import {FlatList, Keyboard, TouchableOpacity} from 'react-native';
-import {Container} from '../../components';
+import {FlatList, Keyboard} from 'react-native';
+import {Container, Title, SubTitle, CardMovie, Loading} from '../../components';
 import * as S from './styles';
 import {CinemaService} from '../../services';
 
@@ -18,7 +18,7 @@ const Main = () => {
     try {
       const {data} = await CinemaService.findByTitle(movie);
       setMovieList(data.Search);
-      console.log(data.Search);
+      console.log('data.Search', data.Search);
     } catch (error) {
       console.log('Error');
     } finally {
@@ -39,8 +39,8 @@ const Main = () => {
 
   return (
     <Container>
-      <S.Title>Cinema APP</S.Title>
-      <S.SubTitle>Bem-vindo ao mundo espetacular do cinema</S.SubTitle>
+      <Title>Cinema APP</Title>
+      <SubTitle>Bem-vindo ao mundo espetacular do cinema</SubTitle>
       <S.InputWrapper>
         <S.MovieInput
           placeholder="O que você busca ..."
@@ -48,22 +48,13 @@ const Main = () => {
           value={movie}
         />
         <S.SubmitButton onPress={handleSubmitButton}>
-          {loading ? <S.Loading /> : <S.TextButton>Buscar</S.TextButton>}
+          {loading ? <Loading /> : <S.TextButton>Buscar</S.TextButton>}
         </S.SubmitButton>
       </S.InputWrapper>
       <FlatList
         data={movieList}
         renderItem={({item}) => (
-          <S.CardMovie key={item.imdbID}>
-            <S.CardImage ImageResizeMode="cover" source={{uri: item.Poster}} />
-            <S.CardInfosWrapper>
-              <S.CardTitle>{item.Title}</S.CardTitle>
-              <S.CardSubtitle>Ano: {item.Year}</S.CardSubtitle>
-            </S.CardInfosWrapper>
-            <TouchableOpacity onPress={() => handleFavoriteButton(item)}>
-              <S.StarIcon active={item.Favorite} />
-            </TouchableOpacity>
-          </S.CardMovie>
+          <CardMovie movie={item} onPressFavorite={handleFavoriteButton} />
         )}
       />
     </Container>
