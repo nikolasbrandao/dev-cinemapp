@@ -1,13 +1,19 @@
 import React from 'react';
 import 'react-native-gesture-handler';
-import {View, Text, StatusBar} from 'react-native';
+import {StatusBar} from 'react-native';
 
+import {ThemeProvider} from 'styled-components';
 import Routes from './routes/routes';
+import {theme} from './assets/theme';
+
+console.disableYellowBox = true;
 
 const App = () => (
   <>
-    <StatusBar barStyle="light-content" backgroundColor="#000" />
-    <Routes />
+    <ThemeProvider theme={theme}>
+      <StatusBar barStyle="light-content" backgroundColor="#000" />
+      <Routes />
+    </ThemeProvider>
   </>
 );
 

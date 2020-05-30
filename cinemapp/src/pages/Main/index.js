@@ -1,10 +1,12 @@
 import React from 'react';
 import {View, Text} from 'react-native';
 
+import {Container} from '../../components';
+
 const Main = () => (
-  <View>
+  <Container>
     <Text>Main</Text>
-  </View>
+  </Container>
 );
 
 export default Main;
