@@ -18,7 +18,6 @@ const Main = () => {
     try {
       const {data} = await CinemaService.findByTitle(movie);
       setMovieList(data.Search);
-      console.log('data.Search', data.Search);
     } catch (error) {
       console.log('Error');
     } finally {
@@ -27,10 +26,15 @@ const Main = () => {
   };
 
   const handleFavoriteButton = (item) => {
-    // persiste item
     const newListMovie = movieList.map((movieItem) => {
       if (movieItem.imdbID === item.imdbID) {
-        return {...movieItem, Favorite: !movieItem.Favorite};
+        const newMovie = {...movieItem, Favorite: !movieItem.Favorite};
+        if (item.Favorite) {
+          CinemaService.unsetFavorite(newMovie);
+        } else {
+          CinemaService.setFavorite(newMovie);
+        }
+        return newMovie;
       }
       return movieItem;
     });
@@ -54,7 +58,11 @@ const Main = () => {
       <FlatList
         data={movieList}
         renderItem={({item}) => (
-          <CardMovie movie={item} onPressFavorite={handleFavoriteButton} />
+          <CardMovie
+            key={item.imdbID}
+            movie={item}
+            onPressFavorite={handleFavoriteButton}
+          />
         )}
       />
     </Container>
