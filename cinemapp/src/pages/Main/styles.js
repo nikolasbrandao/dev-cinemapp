@@ -1,17 +1,18 @@
+import Icon from 'react-native-vector-icons/Ionicons';
 import styled from 'styled-components/native';
 
 export const Title = styled.Text`
   color: ${({theme}) => theme.primaryLight};
-  font-size: 32;
+  font-size: 32px;
 `;
 
 export const SubTitle = styled.Text`
   color: ${({theme}) => theme.secondaryLight};
-  font-size: 16;
+  font-size: 16px;
 `;
 
 export const InputWrapper = styled.View`
-  height: 40;
+  height: 40px;
   flex-direction: row;
   justify-content: space-between;
   margin: 24px 0;
@@ -21,7 +22,7 @@ export const MovieInput = styled.TextInput.attrs(({theme}) => ({
   placeholderTextColor: theme.primaryBlue,
 }))`
   width: 70%;
-  font-size: 16;
+  font-size: 16px;
   border: 1px solid ${({theme}) => theme.thirdBlue};
   color: ${({theme}) => theme.primaryBlue};
   background-color: ${({theme}) => theme.secondaryLight};
@@ -40,7 +41,7 @@ export const SubmitButton = styled.TouchableOpacity`
 `;
 
 export const TextButton = styled.Text`
-  font-size: 16;
+  font-size: 16px;
   color: ${({theme}) => theme.primaryLight};
 `;
 
@@ -69,10 +70,20 @@ export const CardInfosWrapper = styled.View`
 
 export const CardTitle = styled.Text`
   color: ${({theme}) => theme.secondaryLight};
-  font-size: 16;
+  font-size: 16px;
 `;
 
 export const CardSubtitle = styled.Text`
   color: ${({theme}) => theme.secondaryLight};
-  font-size: 14;
+  font-size: 14px;
 `;
+
+export const Loading = styled.ActivityIndicator.attrs(({theme}) => ({
+  color: theme.secondaryLight,
+}))``;
+
+export const StarIcon = styled(Icon).attrs(({active, theme}) => ({
+  size: 24,
+  name: active ? 'ios-star' : 'ios-star-outline',
+  color: theme.primaryOrange,
+}))``;
