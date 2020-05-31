@@ -7,20 +7,17 @@ import {addMovie, removeMovie} from '../../redux/cinemaApp';
 import * as S from './styles';
 
 const Favorites = () => {
-  const movieList = useSelector((state) => state);
+  const movieList = useSelector((state) => state.moviesReducer);
   const dispatch = useDispatch();
 
   const handleFavoriteButton = (item) => {
     const newMovie = {...item, Favorite: !item.Favorite};
     if (newMovie.Favorite) {
-      CinemaService.setFavorite(newMovie);
       dispatch(addMovie(newMovie));
     } else {
-      CinemaService.unsetFavorite(newMovie);
       dispatch(removeMovie(newMovie.imdbID));
     }
   };
-
   return (
     <Container>
       <Title>Favoritos</Title>

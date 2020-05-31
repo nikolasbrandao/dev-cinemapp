@@ -34,10 +34,8 @@ const Main = () => {
         const newMovie = {...movieItem, Favorite: !movieItem.Favorite};
         if (item.Favorite) {
           dispatch(removeMovie(newMovie.imdbID));
-          CinemaService.unsetFavorite(newMovie);
         } else {
           dispatch(addMovie(newMovie));
-          CinemaService.setFavorite(newMovie);
         }
         return newMovie;
       }
