@@ -70,6 +70,7 @@ const Main = () => {
           placeholder="O que você busca ..."
           onChangeText={(text) => setMovie(text)}
           value={movie}
+          onSubmitEditing={handleSubmitButton}
         />
         <S.SubmitButton onPress={handleSubmitButton}>
           {loadingButton ? <Loading /> : <S.TextButton>Buscar</S.TextButton>}

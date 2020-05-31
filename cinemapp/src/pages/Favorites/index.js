@@ -17,6 +17,21 @@ const Favorites = () => {
       dispatch(removeMovie(newMovie.imdbID));
     }
   };
+
+  const EmptyList = () => (
+    <S.EmptyListWrapper>
+      <S.EmptyIcon />
+      <S.EmptyListMessageHead>
+        Não encontramos nenhum filme favoritado.
+      </S.EmptyListMessageHead>
+      <S.EmptyListMessageBody>
+        Pesquise e adicione filmes, mantenha salva sua lista de filmes
+        prediletos.
+      </S.EmptyListMessageBody>
+    </S.EmptyListWrapper>
+  );
+
+  console.log('MovieList', movieList);
   return (
     <Container>
       <Title>Favoritos</Title>
@@ -32,6 +47,8 @@ const Favorites = () => {
               showsVerticalScrollIndicator={false}
             />
           )}
+          ListEmptyComponent={EmptyList}
+          contentContainerStyle={{flexGrow: 1}}
         />
       </S.ListMovieWrapper>
     </Container>
