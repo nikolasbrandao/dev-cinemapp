@@ -1,6 +1,7 @@
 import React from 'react';
 import {TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import styled from 'styled-components/native';
 
 const CardMovieWrapper = styled.View`
@@ -15,7 +16,7 @@ const CardMovieWrapper = styled.View`
 
 const CardImage = styled.Image`
   height: 80px;
-  width: 55px;
+  width: 56px;
 `;
 
 const CardInfosWrapper = styled.View`
@@ -42,10 +43,22 @@ const StarIcon = styled(Icon).attrs(({active, theme}) => ({
   color: theme.primaryOrange,
 }))``;
 
+const NotFoundIcon = styled(MCIcon).attrs(({theme}) => ({
+  size: 40,
+  name: 'image-off',
+  color: theme.secondaryLight,
+}))`
+  padding: 0 8px;
+`;
+
 const CardMovie = ({movie, onPressFavorite}) => {
   return (
-    <CardMovieWrapper key={movie.imdbID}>
-      <CardImage ImageResizeMode="cover" source={{uri: movie.Poster}} />
+    <CardMovieWrapper>
+      {movie.Poster !== 'N/A' ? (
+        <CardImage ImageResizeMode="cover" source={{uri: movie.Poster}} />
+      ) : (
+        <NotFoundIcon />
+      )}
       <CardInfosWrapper>
         <CardTitle>{movie.Title}</CardTitle>
         <CardSubtitle>Ano: {movie.Year}</CardSubtitle>

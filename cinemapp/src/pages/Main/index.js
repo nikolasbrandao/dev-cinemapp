@@ -9,23 +9,38 @@ import {addMovie, removeMovie} from '../../redux/cinemaApp';
 const Main = () => {
   const [movie, setMovie] = useState('');
   const [movieList, setMovieList] = useState([]);
+  const [moviePage, setMoviePage] = useState(1);
   const [loading, setLoading] = useState(false);
+  const [loadingButton, setLoadingButton] = useState(false);
   const dispatch = useDispatch();
 
-  const handleSubmitButton = async () => {
+  const handleSearch = async (movies = []) => {
     if (loading) {
       return;
     }
     Keyboard.dismiss();
     setLoading(true);
     try {
-      const {data} = await CinemaService.findByTitle(movie);
-      setMovieList(data.Search);
+      const {data} = await CinemaService.findByTitle(movie, moviePage);
+      if (data.Error) {
+        throw new Error(data.Error);
+      } else {
+        setMovieList([...movies, ...data.Search]);
+        setMoviePage(moviePage + 1);
+      }
     } catch (error) {
-      console.log('Error');
+      console.log('Error', error);
+      const newList = [];
+      setMovieList(newList);
     } finally {
       setLoading(false);
+      setLoadingButton(false);
     }
+  };
+
+  const handleSubmitButton = async () => {
+    setLoadingButton(true);
+    await handleSearch();
   };
 
   const handleFavoriteButton = (item) => {
@@ -44,6 +59,8 @@ const Main = () => {
     setMovieList(newListMovie);
   };
 
+  const ListFooter = () => loading && <Loading />;
+
   return (
     <Container>
       <Title>Cinema APP</Title>
@@ -55,18 +72,19 @@ const Main = () => {
           value={movie}
         />
         <S.SubmitButton onPress={handleSubmitButton}>
-          {loading ? <Loading /> : <S.TextButton>Buscar</S.TextButton>}
+          {loadingButton ? <Loading /> : <S.TextButton>Buscar</S.TextButton>}
         </S.SubmitButton>
       </S.InputWrapper>
       <FlatList
         data={movieList}
+        keyExtractor={(item) => item.imdbID + Math.random()}
         renderItem={({item}) => (
-          <CardMovie
-            key={item.imdbID}
-            movie={item}
-            onPressFavorite={handleFavoriteButton}
-          />
+          <CardMovie movie={item} onPressFavorite={handleFavoriteButton} />
         )}
+        onEndReachedThreshold={0.3}
+        onEndReached={() => handleSearch(movieList)}
+        showsVerticalScrollIndicator={false}
+        ListFooterComponent={ListFooter}
       />
     </Container>
   );

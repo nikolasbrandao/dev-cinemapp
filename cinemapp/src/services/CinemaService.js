@@ -1,10 +1,11 @@
 import api from './api';
 import {MoviesDatabase} from '../database';
 
-export const findByTitle = (title) => {
+export const findByTitle = (title, page = 1) => {
   return api.get('', {
     params: {
       s: title,
+      page,
     },
   });
 };

@@ -2,7 +2,6 @@ import React from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {FlatList} from 'react-native';
 import {Container, Title, SubTitle, CardMovie} from '../../components';
-import {CinemaService} from '../../services';
 import {addMovie, removeMovie} from '../../redux/cinemaApp';
 import * as S from './styles';
 
@@ -30,6 +29,7 @@ const Favorites = () => {
               key={movie.imdbID}
               movie={movie}
               onPressFavorite={handleFavoriteButton}
+              showsVerticalScrollIndicator={false}
             />
           )}
         />
