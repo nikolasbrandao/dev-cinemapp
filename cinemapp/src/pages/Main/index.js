@@ -1,13 +1,16 @@
 import React, {useState} from 'react';
+import {useDispatch} from 'react-redux';
 import {FlatList, Keyboard} from 'react-native';
 import {Container, Title, SubTitle, CardMovie, Loading} from '../../components';
 import * as S from './styles';
 import {CinemaService} from '../../services';
+import {addMovie, removeMovie} from '../../redux/cinemaApp';
 
 const Main = () => {
   const [movie, setMovie] = useState('');
   const [movieList, setMovieList] = useState([]);
   const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
 
   const handleSubmitButton = async () => {
     if (loading) {
@@ -30,8 +33,10 @@ const Main = () => {
       if (movieItem.imdbID === item.imdbID) {
         const newMovie = {...movieItem, Favorite: !movieItem.Favorite};
         if (item.Favorite) {
+          dispatch(removeMovie(newMovie.imdbID));
           CinemaService.unsetFavorite(newMovie);
         } else {
+          dispatch(addMovie(newMovie));
           CinemaService.setFavorite(newMovie);
         }
         return newMovie;
