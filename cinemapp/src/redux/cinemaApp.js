@@ -25,13 +25,18 @@ const initialState = [];
 function moviesReducer(state = initialState, action) {
   switch (action.type) {
     case ADD_MOVIE:
-      return [
-        ...state,
-        {
-          movie: action.movie,
-        },
-      ];
-
+      if (
+        state.filter(({movie}) => movie.imdbID === action.movie.imdbID)
+          .length === 0
+      ) {
+        return [
+          ...state,
+          {
+            movie: action.movie,
+          },
+        ];
+      }
+      return state;
     case REMOVE_MOVIE:
       return remove(state, ({movie}) => movie.imdbID !== action.payload);
 

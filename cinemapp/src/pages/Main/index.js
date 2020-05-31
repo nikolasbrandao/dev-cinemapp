@@ -39,6 +39,7 @@ const Main = () => {
   };
 
   const handleSubmitButton = async () => {
+    setMoviePage(1);
     setLoadingButton(true);
     await handleSearch();
   };
