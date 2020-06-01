@@ -1,4 +1,4 @@
-# Fleet-control
+# CinemApp
 
 ## Sobre o repositório
 
